@@ -7,6 +7,10 @@ using Microsoft.Extensions.Configuration;
 
 namespace LoadAppSettingFromDB.Controllers
 {
+    /// <summary>
+    /// 更改配置，并刷新Configuration
+    /// 参考：https://www.cnblogs.com/weihanli/p/reload-app-configuration-in-aspnetcore.html
+    /// </summary>
     public class SystemConfigsController : Controller
     {
         private readonly ConfigurationsDbContext _context;

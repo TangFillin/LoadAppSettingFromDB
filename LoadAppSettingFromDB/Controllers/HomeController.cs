@@ -21,8 +21,7 @@ namespace LoadAppSettingFromDB.Controllers
         public IActionResult Index()
         {
             //获取配置
-            var config = JsonSerializer.Deserialize<SystemConfig>(Configuration["system.name"]);
-
+            var config = Configuration["system.name"].ToObj<SystemConfig>();
             return View("Index", config);
         }
 

@@ -7,6 +7,9 @@ using System.Text.Json.Serialization;
 
 namespace LoadAppSettingFromDB.ConfigurationSet
 {
+    /// <summary>
+    /// 从数据库读取配置
+    /// </summary>
     public class EntityFrameworkConfigurationProvider : ConfigurationProvider
     {
         private readonly DbContextOptions<ConfigurationsDbContext> _dbContextOptions;
