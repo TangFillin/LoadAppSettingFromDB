@@ -20,9 +20,9 @@ namespace LoadAppSettingFromDB.Controllers
 
         public IActionResult Index()
         {
+            //获取配置
             var config = JsonSerializer.Deserialize<SystemConfig>(Configuration["system.name"]);
 
-            //var sysName = Configuration["system.name"].ToString();
             return View("Index", config);
         }
 

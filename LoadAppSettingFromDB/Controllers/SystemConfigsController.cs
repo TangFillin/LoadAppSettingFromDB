@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LoadAppSettingFromDB.ConfigurationSet;
+using Microsoft.Extensions.Configuration;
 
 namespace LoadAppSettingFromDB.Controllers
 {
     public class SystemConfigsController : Controller
     {
         private readonly ConfigurationsDbContext _context;
+        private readonly IConfigurationRoot _configuration;
 
-        public SystemConfigsController(ConfigurationsDbContext context)
+        public SystemConfigsController(ConfigurationsDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration as IConfigurationRoot;
         }
 
         // GET: SystemConfigs
@@ -53,7 +53,7 @@ namespace LoadAppSettingFromDB.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Key,Value,ValueType,DefValue,IsSystem")] SystemConfig systemConfig)
+        public async Task<IActionResult> Create([Bind("Key,Value,ValueType,DefValue,IsSystem")] SystemConfig systemConfig)
         {
             if (ModelState.IsValid)
             {
@@ -98,6 +98,10 @@ namespace LoadAppSettingFromDB.Controllers
                 {
                     _context.Update(systemConfig);
                     await _context.SaveChangesAsync();
+
+                    //刷新Configuration（全局刷新了）
+                    _configuration.Reload();
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {
