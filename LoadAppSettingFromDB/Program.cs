@@ -23,7 +23,7 @@ namespace LoadAppSettingFromDB
                 .ConfigureAppConfiguration(configBuilder=>
                 {
                     var configuration = configBuilder.Build();
-                    configBuilder.AddEntityFramework(config => config.UseOracle(configuration.GetConnectionString("")));
+                    configBuilder.AddEntityFramework(config => config.UseOracle(configuration.GetConnectionString("Oracle")));
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

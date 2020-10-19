@@ -5,8 +5,13 @@ namespace LoadAppSettingFromDB.ConfigurationSet
 {
     public class ConfigurationsDbContext : DbContext
     {
-        public ConfigurationsDbContext(DbContextOptions<ConfigurationsDbContext> _dbContextOptions)
+        public ConfigurationsDbContext()
         {
+
+        }
+        public ConfigurationsDbContext(DbContextOptions<ConfigurationsDbContext> _dbContextOptions):base(_dbContextOptions)
+        {
+
         }
 
         public DbSet<SystemConfig> SystemConfigs { get; set; }

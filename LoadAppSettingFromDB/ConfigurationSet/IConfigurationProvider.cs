@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace LoadAppSettingFromDB.ConfigurationSet
 {
@@ -26,7 +28,8 @@ namespace LoadAppSettingFromDB.ConfigurationSet
                 }
                 foreach (var configuration in configurations)
                 {
-                    Data[configuration.Key] = configuration.Value;
+                    Data[configuration.Key] = JsonSerializer.Serialize(configuration);
+                    //Data[configuration.Key] = configuration.Value;
                 }
             }
         }

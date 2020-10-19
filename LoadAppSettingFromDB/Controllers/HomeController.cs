@@ -1,26 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using LoadAppSettingFromDB.Models;
+using Microsoft.Extensions.Configuration;
+using System.Text.Json;
+using LoadAppSettingFromDB.ConfigurationSet;
 
 namespace LoadAppSettingFromDB.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IConfiguration Configuration;
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
             _logger = logger;
+            Configuration = configuration;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var config = JsonSerializer.Deserialize<SystemConfig>(Configuration["system.name"]);
+
+            //var sysName = Configuration["system.name"].ToString();
+            return View("Index", config);
         }
 
         public IActionResult Privacy()
